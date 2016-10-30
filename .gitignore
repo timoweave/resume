@@ -1,4 +1,6 @@
 node_modules
 bower_components
 data
-npm-debug.log
+**/npm-debug.log
+client/fonts/*.woff
+client/fonts/fonts.css

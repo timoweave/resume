@@ -4,10 +4,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+
 import promise from 'redux-promise';
 import axios from 'axios';
+import style from './app.css';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin'; // fixTapTouch
+
+import { green100, green500, green700 } from 'material-ui/styles/colors';
+import { RaisedButton, Chip } from 'material-ui';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 class Experience extends Component {
     constructor(props) {
@@ -27,14 +35,14 @@ class Experience extends Component {
     }
     render() {
         const work = this.props;
+        const title = [work.company, work.role, work.begin, ' - ', work.end].join(' ');
         return (
-            <div>
-                <span>{work.company}</span>
-                <span>{work.role}</span>
-                <span>{work.begin}</span>
-                <span>{work.end}</span>
-                {this.renderProjects()}
-            </div>
+            <Card initiallyExpanded={true}>
+                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
+                <CardText expandable={true}>
+                    {this.renderProjects()}                
+                </CardText>
+            </Card>            
         );
     }
 }
@@ -43,23 +51,36 @@ class Technical extends Component {
     constructor(props) {
         super(props);
         this.renderAreas = this.renderAreas.bind(this);
+        this.styles = {
+            chip : {
+                margin: 4,
+                fontSize : "1.5em"
+            },
+            wrapper: {
+                display: 'flex',
+                flexWrap: 'wrap',
+            }
+        };
     }
     renderAreas() {
         if (this.props.areas === undefined) { return (<span></span>); }
 
         const areas = this.props.areas.map((area, index) => {
             return (
-                <li key={index}>{area}</li>
+                <Chip key={index} style={this.styles.chip}>{area}</Chip>
             );
         });
-        return (<ul>{areas}</ul>);
+        return (<div style={this.styles.wrapper}>{areas}</div>);
     }
     render() {
+        const title=this.props.category;
         return (
-            <div>
-                {this.props.category}
-                {this.renderAreas()}
-            </div>
+            <Card initiallyExpanded={true}>
+                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
+                <CardText expandable={true}>
+                    {this.renderAreas()}                
+                </CardText>
+            </Card>            
         );
     }
 }
@@ -69,14 +90,12 @@ class Education extends Component {
         super(props);
     }
     render() {
+        const edu = this.props;
+        const title = [edu.school, edu.state, edu.degree, edu.begin, ' - ', edu.end].join(' ');
         return (
-            <div>
-                <span>{this.props.school}</span>
-                <span>{this.props.state}</span>,
-                <span>{this.props.degree}</span>,
-                <span>{this.props.begin}</span> -
-                <span>{this.props.end}</span>
-            </div>
+            <Card>
+                <CardHeader title={title}/>
+            </Card>            
         );
     }
 }
@@ -114,12 +133,12 @@ class BaseComponent extends Component {
     getJson() {
         const component = this;
         axios.get(this.state.api)
-            .then(function (response) {
-                component.setState({ json: response.data });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+             .then(function (response) {
+                 component.setState({ json: response.data });
+             })
+             .catch(function (error) {
+                 console.log(error);
+             });
     }
     render() {
         return (<span></span>);
@@ -138,17 +157,20 @@ export class Experiences extends BaseComponent {
         return works.map((work, index) => {
             return (
                 <Experience key={index}
-                    company={work.company} role={work.role}
-                    begin={work.begin} end={work.end} projects={work.projects}></Experience>
+                            company={work.company} role={work.role}
+                            begin={work.begin} end={work.end} projects={work.projects}></Experience>
             );
         });
     }
     render() {
+        const title = "Experiences";
         return (
-            <div >
-                <h1>Experiences</h1>
-                {this.renderExperiences()}
-            </div >
+            <Card initiallyExpanded={true}>
+                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
+                <CardText expandable={true}>
+                    {this.renderExperiences()}                
+                </CardText>
+            </Card>            
         );
     }
 }
@@ -170,11 +192,14 @@ export class Technicals extends BaseComponent {
         });
     }
     render() {
+        const title = "Technicals";
         return (
-            <div>
-                <h1>Technicals</h1>
-                {this.renderTechnicals()}
-            </div>
+            <Card initiallyExpanded={true}>
+                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
+                <CardText expandable={true}>
+                    {this.renderTechnicals()}                
+                </CardText>
+            </Card>            
         );
     }
 }
@@ -192,18 +217,21 @@ export class Educations extends BaseComponent {
         return this.state.json.map((edu, idx) => {
             return (
                 <Education key={idx}
-                    school={edu.school} degree={edu.degree}
-                    begin={edu.begin} end={edu.end}
-                    state={edu.state}/>
+                           school={edu.school} degree={edu.degree}
+                           begin={edu.begin} end={edu.end}
+                           state={edu.state}/>
             );
         });
     }
     render() {
+        const title = "Educations";
         return (
-            <div>
-                <h1>Educations</h1>
-                {this.renderEducations()}
-            </div>
+            <Card initiallyExpanded={true}>
+                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
+                <CardText expandable={true}>
+                    {this.renderEducations()}                
+                </CardText>
+            </Card>            
         );
     }
 }
@@ -223,10 +251,10 @@ export class Abouts extends BaseComponent {
         return this.state.json.map((about, index) => {
             return (
                 <About key={index}
-                    firstname={about.firstname}
-                    lastname={about.lastname}
-                    contacts={about.contacts}
-                    >
+                       firstname={about.firstname}
+                       lastname={about.lastname}
+                       contacts={about.contacts}
+                >
                 </About>
             );
         });
@@ -266,10 +294,40 @@ export function Store() {
     return createStoreWithMiddleware;
 }
 
+function getMuiThemeInfo() {
+    const muiTheme = getMuiTheme({
+        palette: {
+            primary1Color: green500,
+            primary2Color: green700,
+            primary3Color: green100,
+        },
+    }, {
+        // userAgent: req.headers['user-agent'],
+        avatar: {
+            borderColor: null,
+        }
+
+    });
+    return muiTheme;
+}
+function fixTapTouch() {
+    // Some components use react-tap-event-plugin to listen
+    // for touch events because onClick is not fast enough.
+    // This dependency is temporary and will eventually go away.
+    // Until then, be sure to inject this plugin at the start of your app.
+    //
+    // Needed for onTouchTap
+    // http://stackoverflow.com/a/34015469/988941
+
+    injectTapEventPlugin();
+}
+
 export function main() {
+    fixTapTouch();
+    const muiTheme = getMuiThemeInfo();
     const root = document.getElementById('root');
     const content = (
-        <Provider store={Store()}>
+        <MuiThemeProvider muiTheme={muiTheme}>
             <Router history={browserHistory} >
                 <Route path="/">
                     <IndexRoute component={Resume}/>
@@ -279,7 +337,7 @@ export function main() {
                     <Route path="/technicals" component={Technicals} />
                 </Route>
             </Router>
-        </Provider>
+        </MuiThemeProvider>
     );
     
     ReactDOM.render(content, root);
