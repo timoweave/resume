@@ -129,7 +129,7 @@ class BaseComponent extends Component {
 export class Experiences extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api };
+        this.state = { api: this.props.api || "api/resume/experiences" };
         this.renderExperiences = this.renderExperiences.bind(this);
     }
     renderExperiences() {
@@ -156,7 +156,7 @@ export class Experiences extends BaseComponent {
 export class Technicals extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api };
+        this.state = { api: this.props.api || "api/resume/technicals" };
         this.renderTechnicals = this.renderTechnicals.bind(this);
     }
     renderTechnicals() {
@@ -182,7 +182,7 @@ export class Technicals extends BaseComponent {
 export class Educations extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api };
+        this.state = { api: this.props.api || "api/resume/educations" };
         this.renderEducations = this.renderEducations.bind(this);
     }
     renderEducations() {
@@ -212,7 +212,7 @@ export class Abouts extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api };
+        this.state = { api: this.props.api || "api/resume/abouts" };
         this.renderAbouts = this.renderAbouts.bind(this);
     }
 
