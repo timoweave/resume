@@ -50,17 +50,18 @@
     "webpack-hot-middleware": "^2.13.0"
   },
   "dependencies": {
-    "axios": "^0.15.2",        
+    "axios": "^0.15.2",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
-    "mongoose": "^4.6.5",
-    "morgan": "^1.7.0",
-    "q": "^1.4.1",
-    "body-parser": "^1.15.2",
     "html-to-react": "^1.2.1",
     "lodash": "^4.16.4",
+    "material-ui": "^0.16.1",
     "mongo": "^0.1.0",
+    "mongoose": "^4.6.5",
+    "morgan": "^1.7.0",
     "path": "^0.12.7",
+    "q": "^1.4.1",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.5",
     "react-copy-to-clipboard": "^4.2.3",
@@ -69,6 +70,8 @@
     "react-html-parser": "^1.0.3",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
+    "react-tap-event-plugin": "^1.0.0",
+    "react-tools": "^0.13.3",
     "redux": "^3.6.0",
     "redux-promise": "^0.5.3"
   }
