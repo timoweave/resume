@@ -1,6 +1,6 @@
 node_modules
 bower_components
-data
+mongo_data
 **/npm-debug.log
-client/fonts/*.woff
-client/fonts/fonts.css
+fonts/*.woff
+fonts/fonts.css

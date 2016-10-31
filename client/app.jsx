@@ -8,14 +8,20 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 
 import promise from 'redux-promise';
 import axios from 'axios';
-import style from './app.css';
+import styles from './app.css';
+// import fontsStyles from '../fonts/fonts.css';
+// import fontAwesomeStyles from '../node_modules/font-awesome/css/font-awesome.css';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin'; // fixTapTouch
 
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
-import { RaisedButton, Chip } from 'material-ui';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import { RaisedButton, Chip, Divider, FloatingActionButton, Paper } from 'material-ui';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import School from 'material-ui/svg-icons/social/school';
+import CommContacts from 'material-ui/svg-icons/communication/contacts';
 
 class Experience extends Component {
     constructor(props) {
@@ -36,13 +42,32 @@ class Experience extends Component {
     render() {
         const work = this.props;
         const title = [work.company, work.role, work.begin, ' - ', work.end].join(' ');
+        const style = { backgroundColor: "none" };
         return (
             <Card initiallyExpanded={true}>
-                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
                 <CardText expandable={true}>
-                    {this.renderProjects()}                
+                    <div>
+                        <Toolbar style={style}>
+                            <ToolbarGroup style={{ width: "30%" }}>
+                                <ToolbarTitle text={work.company} />
+                            </ToolbarGroup>
+                            <ToolbarGroup>
+                                <ToolbarTitle text={work.city} />
+                            </ToolbarGroup>
+                            <ToolbarGroup>
+                                <ToolbarTitle text={work.role} />
+                            </ToolbarGroup>
+                            <ToolbarGroup>
+                                <ToolbarTitle text={work.begin} />
+                            </ToolbarGroup>
+                            <ToolbarGroup>
+                                <ToolbarTitle text={work.end} />
+                            </ToolbarGroup>
+                        </Toolbar>
+                    </div>
+                    {this.renderProjects()}
                 </CardText>
-            </Card>            
+            </Card>
         );
     }
 }
@@ -52,35 +77,36 @@ class Technical extends Component {
         super(props);
         this.renderAreas = this.renderAreas.bind(this);
         this.styles = {
-            chip : {
-                margin: 4,
-                fontSize : "1.5em"
+            chip: {
+                margin: "4px",
+                fontSize: "1.5em",
+                backgroundColor: "#EAEAEA"
             },
             wrapper: {
                 display: 'flex',
                 flexWrap: 'wrap',
+            },
+            span: {
+                margin: "0.5em",
             }
         };
     }
     renderAreas() {
-        if (this.props.areas === undefined) { return (<span></span>); }
-
-        const areas = this.props.areas.map((area, index) => {
-            return (
-                <Chip key={index} style={this.styles.chip}>{area}</Chip>
-            );
-        });
-        return (<div style={this.styles.wrapper}>{areas}</div>);
+        if (this.props.areas === undefined) { return (<p></p>); }
+        const areas = this.props.areas.join(' ');
+        return (<p>{areas}</p>);
     }
     render() {
-        const title=this.props.category;
+        const title = this.props.category;
         return (
-            <Card initiallyExpanded={true}>
-                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
-                <CardText expandable={true}>
-                    {this.renderAreas()}                
-                </CardText>
-            </Card>            
+            <div className="col-md-4">
+                <div className="row">
+                    {this.props.category}
+                </div>
+                <div className="row">
+                    {this.renderAreas()}
+                </div>
+            </div>
         );
     }
 }
@@ -91,11 +117,25 @@ class Education extends Component {
     }
     render() {
         const edu = this.props;
-        const title = [edu.school, edu.state, edu.degree, edu.begin, ' - ', edu.end].join(' ');
+        const style = { backgroundColor: "none", color: "black" };
         return (
-            <Card>
-                <CardHeader title={title}/>
-            </Card>            
+            <Toolbar style={style}>
+                <ToolbarGroup style={{ width: "30%" }}>
+                    <ToolbarTitle text={edu.school} style={style} />
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <ToolbarTitle text={edu.state} style={style}/>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <ToolbarTitle text={edu.degree} style={style}/>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <ToolbarTitle text={edu.begin} style={style}/>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <ToolbarTitle text={edu.end} style={style}/>
+                </ToolbarGroup>
+            </Toolbar>
         );
     }
 }
@@ -133,12 +173,12 @@ class BaseComponent extends Component {
     getJson() {
         const component = this;
         axios.get(this.state.api)
-             .then(function (response) {
-                 component.setState({ json: response.data });
-             })
-             .catch(function (error) {
-                 console.log(error);
-             });
+            .then(function (response) {
+                component.setState({ json: response.data });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     render() {
         return (<span></span>);
@@ -157,8 +197,8 @@ export class Experiences extends BaseComponent {
         return works.map((work, index) => {
             return (
                 <Experience key={index}
-                            company={work.company} role={work.role}
-                            begin={work.begin} end={work.end} projects={work.projects}></Experience>
+                    company={work.company} role={work.role}
+                    begin={work.begin} end={work.end} projects={work.projects}></Experience>
             );
         });
     }
@@ -168,9 +208,9 @@ export class Experiences extends BaseComponent {
             <Card initiallyExpanded={true}>
                 <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
                 <CardText expandable={true}>
-                    {this.renderExperiences()}                
+                    {this.renderExperiences()}
                 </CardText>
-            </Card>            
+            </Card>
         );
     }
 }
@@ -193,13 +233,14 @@ export class Technicals extends BaseComponent {
     }
     render() {
         const title = "Technicals";
+
         return (
             <Card initiallyExpanded={true}>
                 <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
                 <CardText expandable={true}>
-                    {this.renderTechnicals()}                
+                    {this.renderTechnicals()}
                 </CardText>
-            </Card>            
+            </Card>
         );
     }
 }
@@ -216,22 +257,27 @@ export class Educations extends BaseComponent {
         }
         return this.state.json.map((edu, idx) => {
             return (
-                <Education key={idx}
-                           school={edu.school} degree={edu.degree}
-                           begin={edu.begin} end={edu.end}
-                           state={edu.state}/>
+                <Education key={idx} school={edu.school} degree={edu.degree}
+                    begin={edu.begin} end={edu.end}
+                    state={edu.state}/>
             );
         });
     }
     render() {
         const title = "Educations";
+        const style = {
+            paper: { emargin: 20, textAlign: 'center', display: 'block' },
+            title: { color: "black", fontWeight: "bold", fontSize: "1.75em" }
+        }
         return (
-            <Card initiallyExpanded={true}>
-                <CardHeader title={title} actAsExpander={true} showExpandableButton={true}/>
-                <CardText expandable={true}>
-                    {this.renderEducations()}                
-                </CardText>
-            </Card>            
+            <Paper style={style.paper} zDepth={2}>
+                <Toolbar>
+                    <ToolbarGroup>
+                        <ToolbarTitle text={title} style={style.title}/>
+                    </ToolbarGroup>
+                </Toolbar>
+                {this.renderEducations()}
+            </Paper>
         );
     }
 }
@@ -251,10 +297,10 @@ export class Abouts extends BaseComponent {
         return this.state.json.map((about, index) => {
             return (
                 <About key={index}
-                       firstname={about.firstname}
-                       lastname={about.lastname}
-                       contacts={about.contacts}
-                >
+                    firstname={about.firstname}
+                    lastname={about.lastname}
+                    contacts={about.contacts}
+                    >
                 </About>
             );
         });
@@ -279,8 +325,11 @@ export default class Resume extends Component {
         return (
             <div>
                 <Abouts api="api/resume/abouts"/>
+                <Divider />
                 <Technicals api="api/resume/technicals"/>
+                <Divider />
                 <Experiences api="api/resume/experiences"/>
+                <Divider />
                 <Educations api="api/resume/educations"/>
             </div>
         );
@@ -302,12 +351,12 @@ function getMuiThemeInfo() {
             primary3Color: green100,
         },
     }, {
-        // userAgent: req.headers['user-agent'],
-        avatar: {
-            borderColor: null,
-        }
+            // userAgent: req.headers['user-agent'],
+            avatar: {
+                borderColor: null,
+            }
 
-    });
+        });
     return muiTheme;
 }
 function fixTapTouch() {
@@ -331,15 +380,15 @@ export function main() {
             <Router history={browserHistory} >
                 <Route path="/">
                     <IndexRoute component={Resume}/>
-                    <Route path="/abouts" component={Abouts} />
-                    <Route path="/educations" component={Educations} />
-                    <Route path="/experiences" component={Experiences} />
-                    <Route path="/technicals" component={Technicals} />
+                    <Route path="abouts" component={Abouts} > </Route>
+                    <Route path="educations" component={Educations} ></Route>
+                    <Route path="experiences" component={Experiences}></Route>
+                    <Route path="technicals" component={Technicals} ></Route>
                 </Route>
             </Router>
         </MuiThemeProvider>
     );
-    
+
     ReactDOM.render(content, root);
 }
 

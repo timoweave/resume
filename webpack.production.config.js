@@ -40,10 +40,11 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
+      include : [ /client/ ],
+      exclude: [ /node_modules/ ],
+      loader: ['react-hot', 'babel'],
       query: {
-        "presets": ["es2015", "stage-0", "stage-1", "react"]
+        "presets": ["es2015", "stage-1", "react"]
       }
     }, {
       test: /\.json?$/,

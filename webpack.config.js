@@ -8,10 +8,10 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'client/app.jsx')
+    path.resolve(__dirname, 'client/app.jsx')
   ],
   output: {
-    path: path.join(__dirname, '/dist/'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -31,10 +31,11 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
+      include : [ /client/ ],
+      exclude: [ /node_modules/ ],
+      loader: 'babel-loader',
       query: {
-        "presets": ["react", "es2015", "stage-0", "stage-1", "react-hmre"]
+        "presets": ["es2015", "stage-1", "react", "react-hmre"]
       }
     }, {
       test: /\.json?$/,
