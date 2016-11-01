@@ -7,9 +7,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 
 module.exports = {
-  entry: [
-    path.join(__dirname, 'client/app.jsx')
-  ],
+  entry: {
+    main : [
+      path.join(__dirname, 'client/app.jsx')
+    ]
+  },
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: '[name]-[hash].min.js',
@@ -44,7 +46,7 @@ module.exports = {
       exclude: [ /node_modules/ ],
       loader: ['react-hot', 'babel'],
       query: {
-        "presets": ["es2015", "stage-1", "react"]
+        "presets": ["es2017", "stage-1", "react"]
       }
     }, {
       test: /\.json?$/,

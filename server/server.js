@@ -205,11 +205,15 @@ class Server {
 
 }
 
-module.exports = Server;
+(() => {
+  if (typeof module === 'object') {
+    module.exports = Server;
+  }
 
-if (require.main === module) {
-  const server = new Server();
-  server.start();
-}
+  if ((typeof require === 'function') && (require.main === module)) {
+    const server = new Server();
+    server.start();
+  }
+})();
 
 

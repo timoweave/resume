@@ -26,11 +26,15 @@ class ResumeServer {
   }
 }
 
-module.exports = ResumeServer;
+(() => {
+  if (typeof module === 'object') {
+    module.exports = ResumeServer;
+  }
 
-if (require.main === module) {
-  const server = new ResumeServer();
-  server.start();
-} 
+  if (((typeof require === 'function') && (require.main === module)) {
+    const server = new ResumeServer();
+    server.start();
+  }
+})();
 
 

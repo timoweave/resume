@@ -29,7 +29,11 @@ class Experience extends Component {
         this.renderProjects = this.renderProjects.bind(this);
     }
     renderProjects() {
-        if (this.props.projects === undefined) { return (<span></span>); }
+        if (this.props.projects === undefined) {
+            return (
+                <span></span>
+            );
+        }
         const projects = this.props.projects.map((proj, index) => {
             return (
                 <li key={index}>
@@ -37,31 +41,37 @@ class Experience extends Component {
                 </li>
             );
         });
-        return (<ul>{projects}</ul>);
+        return (
+            <ul>{projects}</ul>
+        );
     }
     render() {
         const work = this.props;
         const title = [work.company, work.role, work.begin, ' - ', work.end].join(' ');
-        const style = { backgroundColor: "none" };
+        const style = {
+            backgroundColor: "none"
+        };
         return (
             <Card initiallyExpanded={true}>
                 <CardText expandable={true}>
                     <div>
                         <Toolbar style={style}>
-                            <ToolbarGroup style={{ width: "30%" }}>
-                                <ToolbarTitle text={work.company} />
+                            <ToolbarGroup style={{
+                                width: "30%"
+                            }}>
+                                <ToolbarTitle text={work.company}/>
                             </ToolbarGroup>
                             <ToolbarGroup>
-                                <ToolbarTitle text={work.city} />
+                                <ToolbarTitle text={work.city}/>
                             </ToolbarGroup>
                             <ToolbarGroup>
-                                <ToolbarTitle text={work.role} />
+                                <ToolbarTitle text={work.role}/>
                             </ToolbarGroup>
                             <ToolbarGroup>
-                                <ToolbarTitle text={work.begin} />
+                                <ToolbarTitle text={work.begin}/>
                             </ToolbarGroup>
                             <ToolbarGroup>
-                                <ToolbarTitle text={work.end} />
+                                <ToolbarTitle text={work.end}/>
                             </ToolbarGroup>
                         </Toolbar>
                     </div>
@@ -84,17 +94,23 @@ class Technical extends Component {
             },
             wrapper: {
                 display: 'flex',
-                flexWrap: 'wrap',
+                flexWrap: 'wrap'
             },
             span: {
-                margin: "0.5em",
+                margin: "0.5em"
             }
         };
     }
     renderAreas() {
-        if (this.props.areas === undefined) { return (<p></p>); }
+        if (this.props.areas === undefined) {
+            return (
+                <p></p>
+            );
+        }
         const areas = this.props.areas.join(' ');
-        return (<p>{areas}</p>);
+        return (
+            <p>{areas}</p>
+        );
     }
     render() {
         const title = this.props.category;
@@ -117,11 +133,16 @@ class Education extends Component {
     }
     render() {
         const edu = this.props;
-        const style = { backgroundColor: "none", color: "black" };
+        const style = {
+            backgroundColor: "none",
+            color: "black"
+        };
         return (
             <Toolbar style={style}>
-                <ToolbarGroup style={{ width: "30%" }}>
-                    <ToolbarTitle text={edu.school} style={style} />
+                <ToolbarGroup style={{
+                    width: "30%"
+                }}>
+                    <ToolbarTitle text={edu.school} style={style}/>
                 </ToolbarGroup>
                 <ToolbarGroup>
                     <ToolbarTitle text={edu.state} style={style}/>
@@ -147,14 +168,21 @@ class About extends Component {
     }
     renderContacts() {
         const contacts = this.props.contacts.map((contact, index) => {
-            return (<li key={index}> {contact} </li>);
+            return (
+                <li key={index}>
+                    {contact}
+                </li>
+            );
         });
-        return (<ul>{contacts}</ul>);
+        return (
+            <ul>{contacts}</ul>
+        );
     }
     render() {
         return (
             <div>
-                <span>{this.props.firstname}</span> <span>{this.props.lastname}</span>
+                <span>{this.props.firstname}</span>
+                <span>{this.props.lastname}</span>
                 {this.renderContacts()}
             </div>
         );
@@ -164,7 +192,10 @@ class About extends Component {
 class BaseComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = { api: "", json: [] };
+        this.state = {
+            api: "",
+            json: []
+        };
         this.getJson = this.getJson.bind(this);
     }
     componentWillMount() {
@@ -172,33 +203,35 @@ class BaseComponent extends Component {
     }
     getJson() {
         const component = this;
-        axios.get(this.state.api)
-            .then(function (response) {
-                component.setState({ json: response.data });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        axios.get(this.state.api).then(function (response) {
+            component.setState({ json: response.data });
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
     render() {
-        return (<span></span>);
+        return (
+            <span></span>
+        );
     }
 }
 
 export class Experiences extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api || "api/resume/experiences" };
+        this.state = {
+            api: this.props.api || "api/resume/experiences"
+        };
         this.renderExperiences = this.renderExperiences.bind(this);
     }
     renderExperiences() {
-        if (this.state.json === undefined) { return (<div/>); }
+        if (this.state.json === undefined) {
+            return (<div/>);
+        }
         const works = this.state.json;
         return works.map((work, index) => {
             return (
-                <Experience key={index}
-                    company={work.company} role={work.role}
-                    begin={work.begin} end={work.end} projects={work.projects}></Experience>
+                <Experience key={index} company={work.company} role={work.role} begin={work.begin} end={work.end} projects={work.projects}></Experience>
             );
         });
     }
@@ -218,16 +251,19 @@ export class Experiences extends BaseComponent {
 export class Technicals extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api || "api/resume/technicals" };
+        this.state = {
+            api: this.props.api || "api/resume/technicals"
+        };
         this.renderTechnicals = this.renderTechnicals.bind(this);
     }
     renderTechnicals() {
-        if (this.state.json === undefined) { return (<div/>); }
+        if (this.state.json === undefined) {
+            return (<div/>);
+        }
         const techs = this.state.json;
         return techs.map((tech, index) => {
             return (
-                <Technical key={index} category={tech.category} areas={tech.areas}>
-                </Technical>
+                <Technical key={index} category={tech.category} areas={tech.areas}></Technical>
             );
         });
     }
@@ -248,7 +284,9 @@ export class Technicals extends BaseComponent {
 export class Educations extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api || "api/resume/educations" };
+        this.state = {
+            api: this.props.api || "api/resume/educations"
+        };
         this.renderEducations = this.renderEducations.bind(this);
     }
     renderEducations() {
@@ -256,18 +294,22 @@ export class Educations extends BaseComponent {
             return (<div/>)
         }
         return this.state.json.map((edu, idx) => {
-            return (
-                <Education key={idx} school={edu.school} degree={edu.degree}
-                    begin={edu.begin} end={edu.end}
-                    state={edu.state}/>
-            );
+            return (<Education key={idx} school={edu.school} degree={edu.degree} begin={edu.begin} end={edu.end} state={edu.state}/>);
         });
     }
     render() {
         const title = "Educations";
         const style = {
-            paper: { emargin: 20, textAlign: 'center', display: 'block' },
-            title: { color: "black", fontWeight: "bold", fontSize: "1.75em" }
+            paper: {
+                emargin: 20,
+                textAlign: 'center',
+                display: 'block'
+            },
+            title: {
+                color: "black",
+                fontWeight: "bold",
+                fontSize: "1.75em"
+            }
         }
         return (
             <Paper style={style.paper} zDepth={2}>
@@ -286,7 +328,9 @@ export class Abouts extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api || "api/resume/abouts" };
+        this.state = {
+            api: this.props.api || "api/resume/abouts"
+        };
         this.renderAbouts = this.renderAbouts.bind(this);
     }
 
@@ -296,12 +340,7 @@ export class Abouts extends BaseComponent {
         }
         return this.state.json.map((about, index) => {
             return (
-                <About key={index}
-                    firstname={about.firstname}
-                    lastname={about.lastname}
-                    contacts={about.contacts}
-                    >
-                </About>
+                <About key={index} firstname={about.firstname} lastname={about.lastname} contacts={about.contacts}></About>
             );
         });
     }
@@ -325,11 +364,11 @@ export default class Resume extends Component {
         return (
             <div>
                 <Abouts api="api/resume/abouts"/>
-                <Divider />
+                <Divider/>
                 <Technicals api="api/resume/technicals"/>
-                <Divider />
+                <Divider/>
                 <Experiences api="api/resume/experiences"/>
-                <Divider />
+                <Divider/>
                 <Educations api="api/resume/educations"/>
             </div>
         );
@@ -337,7 +376,9 @@ export default class Resume extends Component {
 }
 
 export function Store() {
-    const nothing = (state, action) => { return {}; };
+    const nothing = (state, action) => {
+        return {};
+    };
     const reducers = combineReducers({ none: nothing });
     const createStoreWithMiddleware = applyMiddleware(promise)(createStore)(reducers);
     return createStoreWithMiddleware;
@@ -348,12 +389,12 @@ function getMuiThemeInfo() {
         palette: {
             primary1Color: green500,
             primary2Color: green700,
-            primary3Color: green100,
-        },
+            primary3Color: green100
+        }
     }, {
             // userAgent: req.headers['user-agent'],
             avatar: {
-                borderColor: null,
+                borderColor: null
             }
 
         });
@@ -377,13 +418,13 @@ export function main() {
     const root = document.getElementById('root');
     const content = (
         <MuiThemeProvider muiTheme={muiTheme}>
-            <Router history={browserHistory} >
+            <Router history={browserHistory}>
                 <Route path="/">
                     <IndexRoute component={Resume}/>
-                    <Route path="abouts" component={Abouts} > </Route>
-                    <Route path="educations" component={Educations} ></Route>
+                    <Route path="abouts" component={Abouts}></Route>
+                    <Route path="educations" component={<Educations api="api/resume/educations"></Educations>}></Route>
                     <Route path="experiences" component={Experiences}></Route>
-                    <Route path="technicals" component={Technicals} ></Route>
+                    <Route path="technicals" component={Technicals}></Route>
                 </Route>
             </Router>
         </MuiThemeProvider>
