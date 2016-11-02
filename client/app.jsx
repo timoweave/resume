@@ -12,9 +12,10 @@ import axios from 'axios';
 class Experience extends Component {
     constructor(props) {
         super(props);
-        this.renderProjects = this.renderProjects.bind(this);
+        this.projects = this.projects.bind(this);
+        this.position = this.position.bind(this);
     }
-    renderProjects() {
+    projects() {
         if (this.props.projects === undefined) { return (<span></span>); }
         const projects = this.props.projects.map((proj, index) => {
             return (
@@ -25,15 +26,24 @@ class Experience extends Component {
         });
         return (<ul>{projects}</ul>);
     }
-    render() {
+    position() {
+        if (this.props.projects === undefined) { return (<span></span>); }
         const work = this.props;
         return (
+            <ul>
+                <li>{work.company}</li>
+                <li>{work.role}</li>
+                <li>{work.begin}</li>
+                <li>{work.end}</li>
+            </ul>
+        );
+    }
+
+    render() {
+        return (
             <div>
-                <span>{work.company}</span>
-                <span>{work.role}</span>
-                <span>{work.begin}</span>
-                <span>{work.end}</span>
-                {this.renderProjects()}
+                {this.position()}
+                {this.projects()}
             </div>
         );
     }
@@ -42,9 +52,9 @@ class Experience extends Component {
 class Technical extends Component {
     constructor(props) {
         super(props);
-        this.renderAreas = this.renderAreas.bind(this);
+        this.technicals = this.technicals.bind(this);
     }
-    renderAreas() {
+    technicals() {
         if (this.props.areas === undefined) { return (<span></span>); }
 
         const areas = this.props.areas.map((area, index) => {
@@ -55,10 +65,11 @@ class Technical extends Component {
         return (<ul>{areas}</ul>);
     }
     render() {
+        if (this.props.category === undefined) { return (<span></span>); }
         return (
             <div>
                 {this.props.category}
-                {this.renderAreas()}
+                {this.technicals()}
             </div>
         );
     }
@@ -69,35 +80,15 @@ class Education extends Component {
         super(props);
     }
     render() {
+        if (this.props.school === undefined) { return (<span></span>); }
         return (
-            <div>
-                <span>{this.props.school}</span>
-                <span>{this.props.state}</span>,
-                <span>{this.props.degree}</span>,
-                <span>{this.props.begin}</span> -
-                <span>{this.props.end}</span>
-            </div>
-        );
-    }
-}
-
-class About extends Component {
-    constructor(props) {
-        super(props);
-        this.renderContacts = this.renderContacts.bind(this);
-    }
-    renderContacts() {
-        const contacts = this.props.contacts.map((contact, index) => {
-            return (<li key={index}> {contact} </li>);
-        });
-        return (<ul>{contacts}</ul>);
-    }
-    render() {
-        return (
-            <div>
-                <span>{this.props.firstname}</span> <span>{this.props.lastname}</span>
-                {this.renderContacts()}
-            </div>
+            <ul>
+                <li>{this.props.school}</li>
+                <li>{this.props.state}</li>
+                <li>{this.props.degree}</li>
+                <li>{this.props.begin}</li>
+                <li>{this.props.end}</li>
+            </ul>
         );
     }
 }
@@ -126,13 +117,39 @@ class BaseComponent extends Component {
     }
 }
 
+export class Contacts extends BaseComponent {
+    constructor(props) {
+        super(props);
+        this.state = { api: this.props.api || "api/resume/contacts" };
+    }
+
+    render() {
+        if (this.state.json === undefined) { return (<span></span>); }
+
+        const contacts = this.state.json.map((contact, index) => {
+            return (
+                <li key={index}>{contact.method}, {contact.detail}</li>
+            );
+        });
+
+        return (
+            <div>
+                <h1>Contacts</h1>
+                <ul>
+                    {contacts}
+                </ul>
+            </div>
+        );
+    }
+}
+
 export class Experiences extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = { api: this.props.api || "api/resume/experiences" };
-        this.renderExperiences = this.renderExperiences.bind(this);
+        this.experiences = this.experiences.bind(this);
     }
-    renderExperiences() {
+    experiences() {
         if (this.state.json === undefined) { return (<div/>); }
         const works = this.state.json;
         return works.map((work, index) => {
@@ -144,10 +161,11 @@ export class Experiences extends BaseComponent {
         });
     }
     render() {
+        if (this.state.json === undefined) { return (<div/>); }
         return (
             <div >
                 <h1>Experiences</h1>
-                {this.renderExperiences()}
+                {this.experiences()}
             </div >
         );
     }
@@ -157,9 +175,9 @@ export class Technicals extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = { api: this.props.api || "api/resume/technicals" };
-        this.renderTechnicals = this.renderTechnicals.bind(this);
+        this.technicals = this.technicals.bind(this);
     }
-    renderTechnicals() {
+    technicals() {
         if (this.state.json === undefined) { return (<div/>); }
         const techs = this.state.json;
         return techs.map((tech, index) => {
@@ -173,7 +191,7 @@ export class Technicals extends BaseComponent {
         return (
             <div>
                 <h1>Technicals</h1>
-                {this.renderTechnicals()}
+                {this.technicals()}
             </div>
         );
     }
@@ -183,9 +201,9 @@ export class Educations extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = { api: this.props.api || "api/resume/educations" };
-        this.renderEducations = this.renderEducations.bind(this);
+        this.educations = this.educations.bind(this);
     }
-    renderEducations() {
+    educations() {
         if (this.state.json === undefined) {
             return (<div/>)
         }
@@ -202,41 +220,29 @@ export class Educations extends BaseComponent {
         return (
             <div>
                 <h1>Educations</h1>
-                {this.renderEducations()}
+                {this.educations()}
             </div>
         );
     }
 }
 
-export class Abouts extends BaseComponent {
+export class Users extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = { api: this.props.api || "api/resume/abouts" };
-        this.renderAbouts = this.renderAbouts.bind(this);
-    }
-
-    renderAbouts() {
-        if (this.state.json === undefined) {
-            return (<div/>)
-        }
-        return this.state.json.map((about, index) => {
-            return (
-                <About key={index}
-                    firstname={about.firstname}
-                    lastname={about.lastname}
-                    contacts={about.contacts}
-                    >
-                </About>
-            );
-        });
+        this.state = { api: this.props.api || "api/resume/users" };
     }
 
     render() {
+        if (this.state.json === undefined) { return (<span></span>); }
+        const user = this.state.json[0];
         return (
             <div>
-                <h1>Abouts</h1>
-                {this.renderAbouts()}
+                <h1>User</h1>
+                <ul>
+                    <li key={0}>{user.firstname}</li>
+                    <li key={1}>{user.lastname}</li>
+                </ul>
             </div>
         );
     }
@@ -250,7 +256,8 @@ export default class Resume extends Component {
     render() {
         return (
             <div>
-                <Abouts api="api/resume/abouts"/>
+                <Users api="api/resume/users"/>
+                <Contacts api="api/resume/contacts"/>
                 <Technicals api="api/resume/technicals"/>
                 <Experiences api="api/resume/experiences"/>
                 <Educations api="api/resume/educations"/>
@@ -273,7 +280,8 @@ export function main() {
             <Router history={browserHistory} >
                 <Route path="/">
                     <IndexRoute component={Resume}/>
-                    <Route path="/abouts" component={Abouts} />
+                    <Route path="/users" component={Users} />
+                    <Route path="/contacts" component={Contacts} />
                     <Route path="/educations" component={Educations} />
                     <Route path="/experiences" component={Experiences} />
                     <Route path="/technicals" component={Technicals} />
@@ -281,7 +289,7 @@ export function main() {
             </Router>
         </Provider>
     );
-    
+
     ReactDOM.render(content, root);
 }
 
