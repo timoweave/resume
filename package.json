@@ -13,6 +13,8 @@
     "start_dev": "nodemon server/server.js",
     "start_resume": "node server/resume/server.js",
     "start_mongod": "mkdir -p mongo_data/db && mongod --dbpath mongo_data/db",
+    "restart_mongod": "rm -rf mongo_data && mkdir -p mongo_data/db && mongod --dbpath mongo_data/db",
+    "init_data" : "node server/resume/init.js",
     "get_fonts": "gulp --gulpfile fonts/gulpfile.fonts.js fonts",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },

@@ -1,4 +1,3 @@
-const config = require('../../config');
 const mongoose = require('mongoose');
 mongoose.Promise = require('q').Promise; // NOTE: original mongoose.mpromise is deprecated
 var Schema = mongoose.Schema;
@@ -70,6 +69,8 @@ var ExperienceSchema = Schema({
 });
 
 var models = {
+  connect : mongoose.connect,
+  event : mongoose.connection,
   User: mongoose.model('User', UserSchema),
   Contact: mongoose.model('Contact', ContactSchema),
   Education: mongoose.model('Education', EducationSchema),
@@ -77,16 +78,24 @@ var models = {
   Experience: mongoose.model('Experience', ExperienceSchema)
 };
 
-function crudify_models(url) {
+setup_connection(mongoose);
+module.exports = models;
 
-  mongoose.connection.on('connected', connected);
-  mongoose.connection.on('disconnected', disconnected);
-  mongoose.connection.on('error', error);
-  mongoose.connection.once('open', ready);
-  var db = mongoose.connect(url);
+// functions
+
+function setup_connection(mongoose, url) {
+
+  if (mongoose) {
+    if (url) {
+      mongoose.connect(url);
+    }
+    mongoose.connection.on('connected', connected);
+    mongoose.connection.on('disconnected', disconnected);
+    mongoose.connection.on('error', error);
+    mongoose.connection.once('open', ready);
+  }
 
   // functions
-
   function ready() {
     console.log("OK", "ready", "mongoose", url);
   }
@@ -103,12 +112,3 @@ function crudify_models(url) {
     console.log('NO', 'error', 'mongoose', url);
   }
 }
-
-var crudified = false;
-if (!crudified) {
-  const url = config.isDeveloping ? config.mlocal : config.mlab;
-  crudify_models(url);
-  crudified = true;
-}
-
-module.exports = models;
