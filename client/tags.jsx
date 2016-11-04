@@ -47,8 +47,9 @@ export class Experience extends Component {
         const work = this.props;
         return (
             <ul>
-                <li>{work.company}</li>
                 <li>{work.role}</li>
+                <li>{work.company}</li>
+                <li>{work.city}</li>
                 <li>{work.begin}</li>
                 <li>{work.end}</li>
             </ul>
@@ -121,14 +122,14 @@ export class BaseComponent extends Component {
     getJson(api, save) {
         const component = this;
         axios.get(api)
-             .then(function (response) {
-                 const result = {};
-                 result[save] = response.data;
-                 component.setState(result);
-             })
-             .catch(function (error) {
-                 console.log(error);
-             });
+            .then(function (response) {
+                const result = {};
+                result[save] = response.data;
+                component.setState(result);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     render() {
         return (<span></span>);
@@ -173,8 +174,8 @@ export class Experiences extends BaseComponent {
         return works.map((work, index) => {
             return (
                 <Experience key={index}
-                            company={work.company} role={work.role}
-                            begin={work.begin} end={work.end} projects={work.projects}></Experience>
+                    company={work.company} role={work.role} city={work.city}
+                    begin={work.begin} end={work.end} projects={work.projects}></Experience>
             );
         });
     }
@@ -228,9 +229,9 @@ export class Educations extends BaseComponent {
         return this.state.json.map((edu, idx) => {
             return (
                 <Education key={idx}
-                           school={edu.school} degree={edu.degree}
-                           begin={edu.begin} end={edu.end}
-                           state={edu.state}/>
+                    school={edu.school} degree={edu.degree}
+                    begin={edu.begin} end={edu.end}
+                    state={edu.state}/>
             );
         });
     }
@@ -307,23 +308,33 @@ export function PlainApp() {
 // bootstrap version
 
 export class BsExperience extends Experience {
+    title() {
+        if (this.props.index === 0) { return <span></span>; }
+        return (
+            <Row style={{ 'fontSize': '1.375em' }}>
+                <Col xs={12} style={{ 'textAlign': 'center', 'marginBottom': '0.5em' }}>
+                    <Glyphicon glyph="briefcase" style={{ 'color': 'white', 'opacity': '0.3', 'backgroundColor': 'cornflowerblue', 'borderRadius': '50%', 'padding': '0.4em' }}/>
+                </Col>
+            </Row>
+        );
+    }
     position() {
         if (this.props.projects === undefined) { return (<span></span>); }
         const work = this.props;
-        const font = { 'fontSize' : '1.875em', 'marginBottom' : '0.375em' };
+        const font = { 'fontSize': '1.875em', 'marginBottom': '0.375em' };
         const style = {};
         Object.assign(style, this.props.style);
         Object.assign(style, font);
         const lighter = Object.assign({}, this.props.style);
-        Object.assign(lighter, { 'fontWeight' : 'lighter' });
+        Object.assign(lighter, { 'fontWeight': 'lighter' });
         const end = Object.assign({}, lighter);
         end['textAlign'] = 'right';
 
         return (
             <Row>
                 <Col xs={6} sm={4} style={style}>{work.role}</Col>
-                <Col xs={6} sm={3} style={style}>{work.company}</Col>
-                <Col xsHidden sm={3} style={style}>{work.city}</Col>
+                <Col xs={6} sm={4} style={style}>{work.company}</Col>
+                <Col xsHidden sm={2} style={style}>{work.city}</Col>
                 <Col xsHidden sm={1} style={end}>{work.begin}</Col>
                 <Col xsHidden sm={1} style={end}>{work.end}</Col>
             </Row>
@@ -333,7 +344,7 @@ export class BsExperience extends Experience {
     projects() {
         if (this.props.projects === undefined) { return (<span></span>); }
         const style = Object.assign({}, this.props.style);
-        const font = { 'fontWeight' : 'lighter', 'fontSize' : '1.5em' };
+        const font = { 'fontWeight': 'lighter', 'fontSize': '1.5em' };
         Object.assign(style, font);
         return this.props.projects.map((proj, index) => {
             return (
@@ -347,9 +358,10 @@ export class BsExperience extends Experience {
     }
 
     render() {
-        const style = { 'marginBottom' : '1.5em' };
+        const style = { 'marginBottom': '1.5em' };
         return (
             <Grid fluid style={style}>
+                {this.title()}
                 {this.position()}
                 {this.projects()}
             </Grid>
@@ -371,11 +383,11 @@ export class BsTechnical extends Technical {
     }
     render() {
         if (this.props.category === undefined) { return (<span></span>); }
-        const font = { 'fontSize' : '1.35em' };
+        const font = { 'fontSize': '1.35em', 'textAlign': 'center' };
         return (
             <Col xs={12} sm={4}>
                 <Row style={font}>{this.props.category}</Row>
-                <Row style={{'textAlign' : 'justify', 'padding' :'0.5em', 'fontSize' : '1.0em', 'fontWeight' : 'lighter'}}>
+                <Row style={{ 'textAlign': 'justify', 'padding': '0.5em', 'fontSize': '1.0em', 'fontWeight': 'lighter' }}>
                     {this.technicals()}
                 </Row>
             </Col>
@@ -387,7 +399,7 @@ export class BsEducation extends Education {
     render() {
         if (this.props.school === undefined) { return (<span></span>); }
         const edu = this.props;
-        const font = { 'fontWeight' : 'lighter' }
+        const font = { 'fontWeight': 'lighter' }
         const style = Object.assign({}, this.props.style);
         const lighter = Object.assign({}, this.props.style);
         Object.assign(lighter, font);
@@ -396,9 +408,9 @@ export class BsEducation extends Education {
         return (
             <Grid fluid>
                 <Row>
-                    <Col xs={6} sm={3} style={style}>{edu.degree}</Col>
+                    <Col xs={6} sm={4} style={style}>{edu.degree}</Col>
                     <Col xs={6} sm={4} style={style}>{edu.school}</Col>
-                    <Col xsHidden sm={3} style={lighter}>{edu.state}</Col>
+                    <Col xsHidden sm={2} style={lighter}>{edu.state}</Col>
                     <Col xsHidden sm={1} style={end}>{edu.begin}</Col>
                     <Col xsHidden sm={1} style={end}>{edu.end}</Col>
                 </Row>
@@ -410,7 +422,7 @@ export class BsEducation extends Education {
 export class BsContacts extends Contacts {
     render() {
         if (this.state.json === undefined) { return (<span></span>); }
-        const style = { 'textAlign' : 'center', 'fontSize' : '1.25em' };
+        const style = { 'textAlign': 'center', 'fontSize': '1.25em' };
         const contacts = this.state.json.map((contact, index) => {
             return (
                 <Col sm={3} style={style}>{contact.detail}</Col>
@@ -428,29 +440,15 @@ export class BsContacts extends Contacts {
 }
 
 export class BsExperiences extends Experiences {
-    title() {
-        return (
-            <Grid fluid>
-                <Row style={{ 'fontSize' : '2.75em' }}>
-                    <Col xs={8} sm={2} style={{ 'textAlign' : 'left'}}>
-                        Experiences 
-                    </Col>
-                    <Col xs={4} sm={10} style={{ 'textAlign' : 'right'}}>
-                        <Glyphicon glyph="briefcase"/>
-                    </Col>
-                </Row>
-            </Grid>
-        );
-    }
     experiences() {
         if (this.state.json === undefined) { return (<div/>); }
         const works = this.state.json;
         const style = this.props.style;
         return works.map((work, index) => {
             return (
-                <BsExperience key={index} style={style}
-                              company={work.company} role={work.role}
-                              begin={work.begin} end={work.end} projects={work.projects}>
+                <BsExperience key={index} index={index} style={style}
+                    company={work.company} role={work.role}
+                    begin={work.begin} end={work.end} projects={work.projects}>
                 </BsExperience>
             );
         });
@@ -458,12 +456,18 @@ export class BsExperiences extends Experiences {
     render() {
         const title = (
             <Grid fluid>
-                <Row style={{ 'fontSize' : '2.75em' }}>
-                    <Col xs={8} sm={2} style={{ 'textAlign' : 'left'}}>
-                        Experiences 
+                <Row style={{ 'fontSize': '1.375em' }}>
+                    {/*
+                    <Col xs={8} sm={2} style={{ 'textAlign': 'left' }}>
+                        Experiences
                     </Col>
-                    <Col xs={4} sm={10} style={{ 'textAlign' : 'right'}}>
+
+                    <Col xs={4} sm={10} style={{ 'textAlign': 'right' }}>
                         <Glyphicon glyph="briefcase"/>
+                    </Col>
+                    */}
+                    <Col xs={12} style={{ 'textAlign': 'center', 'marginBottom': '0.5em' }}>
+                        <Glyphicon glyph="briefcase" style={{ 'color': 'white', 'opacity': '0.3', 'backgroundColor': 'cornflowerblue', 'borderRadius': '50%', 'padding': '0.4em' }}/>
                     </Col>
                 </Row>
             </Grid>
@@ -471,7 +475,7 @@ export class BsExperiences extends Experiences {
 
         if (this.state.json === undefined) { return (<div/>); }
         return (
-            <div style={{ 'margin' : '1.5em' }}>
+            <div style={{ 'margin': '1.5em' }}>
                 {title}
                 {this.experiences()}
             </div>
@@ -481,20 +485,6 @@ export class BsExperiences extends Experiences {
 }
 
 export class BsTechnicals extends Technicals {
-    title() {
-        return (
-            <Grid fluid style={{ 'margin' : '1em' }}>
-                <Row style={{ 'fontSize' : '2.75em'}}>
-                    <Col xs={8} sm={2} style={{ 'textAlign' : 'left'}}>
-                        Technicals
-                    </Col>
-                    <Col xs={4} sm={10} style={{ 'textAlign' : 'right'}}>
-                        <Glyphicon glyph="cog"/>
-                    </Col>
-                </Row>
-            </Grid>
-       );
-    }
     technicals() {
         if (this.state.json === undefined) { return (<div/>); }
         const data = this.state.json;
@@ -508,25 +498,31 @@ export class BsTechnicals extends Technicals {
         return (
             <Grid fluid style={style}>
                 {tech}
-            </Grid>            
+            </Grid>
         );
     }
     render() {
-        const style = {marginBottom : '1em' };
+        const style = { marginBottom: '1em' };
         const title = (
             <Grid fluid>
-                <Row style={{fontSize : '2.75em'}}>
-                    <Col xs={8} sm={2} style={{ 'textAlign' : 'left'}}>
+                <Row style={{ fontSize: '1.375em' }}>
+                    {/*
+                    <Col xs={8} sm={2} style={{ 'textAlign': 'left' }}>
                         Technicals
                     </Col>
-                    <Col xs={4} sm={10} style={{ 'textAlign' : 'right'}}>
+
+                    <Col xs={4} sm={10} style={{ 'textAlign': 'right' }}>
                         <Glyphicon glyph="cog"/>
+                    </Col>
+                      */}
+                    <Col xs={12} style={{ 'textAlign': 'center', 'marginBottom': '0.5em' }}>
+                        <Glyphicon glyph="cog" style={{ 'color': 'white', 'opacity': '0.3', 'backgroundColor': 'cornflowerblue', 'borderRadius': '50%', 'padding': '0.4em' }}/>
                     </Col>
                 </Row>
             </Grid>
         );
         return (
-            <div style={{ 'margin' : '1.5em' }}>
+            <div style={{ 'margin': '1.5em' }}>
                 {title}
                 {this.technicals()}
             </div>
@@ -538,13 +534,20 @@ export class BsEducations extends Educations {
     title() {
         return (
             <Grid fluid>
-                <Row style={{ 'fontSize' : '2.75em' }}>
-                    <Col xs={8} sm={2} style={{ 'textAlign' : 'left' }}>
-                        Educations 
+                <Row style={{ 'fontSize': '1.375em' }}>
+                    {/*
+                    <Col xs={8} sm={2} style={{ 'textAlign': 'left' }}>
+                        Educations
                     </Col>
-                    <Col xs={4} sm={10} style={{ 'textAlign' : 'right' }}>
+                    <Col xs={4} sm={10} style={{ 'textAlign': 'right' }}>
                         <Glyphicon glyph="education"/>
                     </Col>
+                      */}
+                    <Col xs={5}></Col>
+                    <Col xs={2} style={{ 'textAlign': 'center', 'marginBottom': '0.5em' }}>
+                        <Glyphicon glyph="education" style={{ 'color': 'white', 'opacity': '0.3', 'backgroundColor': 'cornflowerblue', 'borderRadius': '50%', 'padding': '0.4em' }}/>
+                    </Col>
+                    <Col xs={5}></Col>
                 </Row>
             </Grid>
         );
@@ -553,21 +556,21 @@ export class BsEducations extends Educations {
         if (this.state.json === undefined) {
             return (<div/>)
         }
-        const style = { 'fontSize' : '1.5em' };
+        const style = { 'fontSize': '1.5em' };
         return this.state.json.map((edu, idx) => {
             return (
                 <BsEducation key={idx} style={style}
-                             school={edu.school} degree={edu.degree}
-                             begin={edu.begin} end={edu.end}
-                             state={edu.state}>
+                    school={edu.school} degree={edu.degree}
+                    begin={edu.begin} end={edu.end}
+                    state={edu.state}>
                 </BsEducation>
             );
         });
     }
-    
+
     render() {
         return (
-            <div style={{ 'margin' : '1.5em' }}>
+            <div style={{ 'margin': '1.5em' }}>
                 {this.title()}
                 {this.educations()}
             </div>
@@ -576,10 +579,10 @@ export class BsEducations extends Educations {
 }
 
 export class BsUsers extends Users {
-    
+
     render() {
         if (this.state.json === undefined) { return (<span></span>); }
-        const style = { 'textAlign' : 'center', 'fontSize' : '2.5em', 'margin' : '0.25em 0.25em'};
+        const style = { 'textAlign': 'center', 'fontSize': '2.5em', 'margin': '0.25em 0.25em' };
         const user = this.state.json[0];
         return (
             <Grid fluid>
@@ -591,11 +594,13 @@ export class BsUsers extends Users {
     }
 }
 
-export class BsUser extends BaseComponent {
+export class BsHeader extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { user_api: "api/resume/users", user : [],
-                       contact_api : "api/resume/contacts", contacts : [] };
+        this.state = {
+            user_api: "api/resume/users", user: [],
+            contact_api: "api/resume/contacts", contacts: []
+        };
     }
     componentWillMount() {
         this.getJson(this.state.user_api, "user");
@@ -612,17 +617,20 @@ export class BsUser extends BaseComponent {
         // lightseagreen
         return (
             <Grid fluid>
-                <Row style={{'display': 'flex', 'alignItems' : 'center',
-                             'backgroundColor' : 'cornflowerblue', 'color' : 'white',
-                             'padding' : '0.75em 0.25em', 'margin-bottom' : '1.5em' }}>
-                    <Col xs={12} sm={5} style={{'fontSize' : '2.75em', 'textAlign' : 'left'}}>
-                        <div> {user.firstname} {user.lastname} </div>
-                    </Col>
-                    <Col xsHidden sm={3} style={{ 'fontSize' : '1.5em', 'textAlign' : 'center', 'fontWeight' : 'lighter'}} >
+                <Row style={{
+                    'alignItems': 'center',
+                    'backgroundColor': 'cornflowerblue', 'color': 'white',
+                    'padding': '2em 0.25em 2em 0.25em', 'marginBottom': '1.5em'
+                }}>
+                    <Col xsHidden sm={4} style={{ 'fontSize': '1.25em', 'textAlign': 'left', 'fontWeight': 'lighter' }} >
                         <div> {contacts[0].detail} </div>
                         <div> {contacts[1].detail} </div>
                     </Col>
-                    <Col xsHidden sm={4} style={{ 'fontSize' : '1.5em', 'textAlign' : 'right', 'fontWeight' : 'lighter'}}>
+                    <Col xs={12} sm={4} style={{ 'fontSize': '2.75em', 'textAlign': 'center' }}>
+                        <div style={{ 'textAlign': 'center' }}> {user.firstname} {user.lastname} </div>
+                    </Col>
+
+                    <Col xsHidden sm={4} style={{ 'fontSize': '1.25em', 'textAlign': 'right', 'fontWeight': 'lighter' }}>
                         <div> {contacts[2].detail} </div>
                         <div> {contacts[3].detail} </div>
                     </Col>
@@ -632,23 +640,54 @@ export class BsUser extends BaseComponent {
     }
 }
 
+export class BsFooter extends BsHeader {
+    render() {
+        if ((this.state.user.length === 0) || (this.state.contacts.length === 0)) {
+            return (<span></span>);
+        }
+        const user = this.state.user[0];
+        const contacts = this.state.contacts.map((c) => (c.detail));
+        const grid = { 'backgroundColor': 'cornflowerblue', 'padding': '5em 1em' };
+        const row = { 'textAlign': 'center', 'color': 'white' };
+        const center_col = { 'textAlign': 'center', 'fontSize': '1.875em' };
+        const contact_col = { 'textAlign': 'center', 'fontSize': '1.15em' };
+        return (
+            <Grid fluid style={grid}>
+                <Row style={row}>
+                    <Col xs={12} style={center_col}>
+                        {user.firstname} {user.lastname}
+                    </Col>
+                </Row>
+                <Row style={row}>
+                    <Col key={0} xs={12} sm={3} style={contact_col}>
+                        {contacts[0]}
+                    </Col>
+                    <Col key={1} xs={12} sm={3} style={contact_col}>
+                        {contacts[1]}
+                    </Col>
+                    <Col key={2} xs={12} sm={3} style={contact_col}>
+                        {contacts[2]}
+                    </Col>
+                    <Col key={3} xs={12} sm={3} style={contact_col}>
+                        {contacts[3]}
+                    </Col>
+                </Row>
+
+            </Grid>
+        );
+    }
+}
+
 export class BsResume extends Resume {
     render() {
-        const style = { 'fontSize' : '1.5em' };
+        const style = { 'fontSize': '1.5em' };
         return (
             <div>
-                <BsUser api="api/resume/users" style={style}/>
+                <BsHeader api="api/resume/users" style={style}/>
                 <BsTechnicals api="api/resume/technicals" style={style}/>
                 <BsExperiences api="api/resume/experiences" style={style}/>
                 <BsEducations api="api/resume/educations" style={style}/>
-                <Grid fluid style={{ 'backgroundColor' : 'cornflowerblue', 'height' : '10em'}}>
-                    <Row style={{'textAlign' : 'center', 'color' : 'white' }}>
-                        <Col xs={12} style={{'textAlign' : 'center', 'fontSize' : '1.875em',
-                                             'margin' : '2em'}}>
-                            timothy shiu
-                        </Col>
-                    </Row>
-                </Grid>
+                <BsFooter api="api/resume/users" style={style}/>
             </div>
         );
     }
@@ -661,7 +700,8 @@ export function BsApp() {
             <Router history={browserHistory} >
                 <Route path="/">
                     <IndexRoute component={BsResume}/>
-                    <Route path="/user" component={BsUser} />
+                    <Route path="/header" component={BsHeader} />
+                    <Route path="/footer" component={BsFooter} />
                     <Route path="/users" component={BsUsers} />
                     <Route path="/contacts" component={BsContacts} />
                     <Route path="/educations" component={BsEducations} />
