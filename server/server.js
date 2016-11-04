@@ -24,6 +24,7 @@ class Server {
     this.app = express();
     this.app.use(morgan);
     this.app.use(publicFiles);
+    this.app.use(express.static(__dirname + '/../')); 
     this.app.use(jsonParser);
     this.app.use(urlencodedParser);
     this.addWebpack();

@@ -1,4 +1,9 @@
 node_modules
 bower_components
-data
+mongo_data
 npm-debug.log
+fonts/*.woff
+fonts/*.css
+*~
+#*#
+.#*
