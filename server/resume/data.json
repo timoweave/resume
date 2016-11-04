@@ -1,165 +1,153 @@
 {
-    "users" : [
-        { "firstname" : "Timothy", "lastname" : "Shiu",
-          "nickname" : "Tim", "email" : "timomakers@gmail.com",
-          "hashword" : "XYZ", "password": "123",
-          "userid" : "1" }
-    ],
-    "contacts" : [
-        { "method" : "href",
-          "detail" : "www.linkedin.com/in/tlinkedin", "userid" : "1"},
-        { "method" : "href",
-          "detail" : "www.github.com.com/timoweave", "userid" : "1"},
-        { "method" : "mailto",
-          "detail" : "timomakers@gmail.com", "userid" : "1"}, 
-        { "method" : "tel",
-          "detail" : "(202)630-2053", "userid" : "1"}
-    ],
-    "technicals" : [
-        { "category" : "javascripts",
-          "areas" : [
-              "javascript (es6, es5)", "jquery", "underscore",
-              "angular", "react", "mongoose", "express", "node",
-              "bcrypt", "bootstrap", "react", "redux", "q", "morgan", "webpack"
-          ],
-          "userid" : "1"
-        },
-        { "category" : "tools",
-          "areas": [
-              "github", "git", "gitlab", "travis-ci", "gitlab-ci",
-              "npm", "bower", "yeoman", "grunt", "glup", "webpack",
-              "sqlite3", "mysql", "progres SQL", "mongo"
-          ],
-          "userid" : "1"
-        },
-        { "category" : "langs",
-          "areas" : [
-              "elisp", "perl", "C/C++", "verilog",
-              "ruby", "tcl", "spice"
-          ],
-          "userid" : "1"
-        },
-        { "category" : "pythons",
-          "areas" : [
-              "python", "nose", "scipy", "numpy", "lexparse"
-          ],
-          "userid" : "1"
-        }
-    ],
-    "educations" : [
-        { "degree" : "Bachelor of Engineer", "begin" : "1992", "end" : "1997",
-          "school" : "McGill University", "state" : "Quebec", "userid" : "1" },
-        { "degree" : "Master of Engineer", "begin" : "1997", "end" : "1998",
-          "school" : "University of Michigan", "state" : "Michigan", "userid" : "1" },
-        { "degree" : "Master of Engineer", "begin" : "1998", "end" : "2004",
-          "school" : "Georgia Institute of Technology", "state" : "Georgia", "userid" : "1" }
-    ],
-    "experiences" : [
-        {
-            "company" : "MakerSquare", "role" : "Student", "city":"san francisco",
-            "begin" : "2016", "end" : "2016",
-            "projects" : [
-                "created tabs/lyrics for ukulele, MVP project(link)",
-                "create school tour for perspective student, GF project(link)"
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Personal", "role" : "Student","city":"san francisco",
-            "begin" : "2016", "end" :"2016",
-            "projects" : [
-                "created restaruant app using mean full stack (link)",
-                "created ionic app using mean full stack (link)",
-                "created poker app using mean full stack (TBD)"
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Nebulian Technology", "role" : "Senior Software Engineer","city":"san jose",
-            "begin" : "2012", "end" : "2012",
-            "projects" : [
-                "Prototype and developed iOS mobile app and Django Web, meetloop.com & taotaomom.com.",
-                "Using various frameworks, Core Data (multi thread), MapKit, RestKit, ShareKit, Three20, XMPP (multi thread), WireShark.",
-                "Set up various servers such as OpenFire jabber, MySql, OAuth2, and Apache.",
-                "Developed Django web site using models, views, templates, with forms using Firebug, jQuery, and JavaScripts.",
-                "XCode building and testing."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Ausdia", "role" : "Senior R&D Engineer","city":"sunnyvale",
-            "begin" : "2014", "end" : "2015",
-            "projects" : [
-                "RD work, constraint coverage analysis of various inconsistent condition, absent associated constraint specification.",
-                "multi thread SDC constraint analysis, diagnostic, optimization of clock network and data",
-                "network and upgrade various important component to run faster and more maintainable.",
-                "multi thread min cut partition to balance random parallel functional simulation.",
-                "improve 10x run time performance for debug_rule facilities for over 100 constraint validations.",
-                "developed new feature, multimode check (multiple constraint scenarios, different set of clocks, constant, disable, false paths, clock sense, clock group, etc.,)",
-                "developed new feature sdc lint check, a super lint for SDC constraint lint checking with a lightweight and coherent semantic check against net-list and user constraints, and library constraints.",
-                "developed new feature scan chain check, load DFT scan chains from LEF/DEF file, and check for lockup latch issues.",
-                "developed new feature constraints merge, across multiple scenarios, transform, insert, or duplicated constraints among different constraints from different scenarios.",
-                "review and enhance run time performance, address customers issue such as diagnose performance, feature requests, and worked closely with product application engineers."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Lorentz Solution", "role" : "R&D Engineer","city":"santa clara",
-            "begin" : "2013", "end" : "2013",
-            "projects" : [
-                "supported AE customers, demo, software installation, and documentation",
-                "wrote spice parser in python and lex/yacc, ast, and perform syntax direct translation",
-                "Reduced lot of bugs of a product, high frequency design, by a net-centric mini layout-vs-schematic",
-                "improved infra-structure for calbire svdb cci interface (library components, netlist, and gdsii)",
-                "improved run time performance, 10x faster, compiler/compiler modular approach for easy maintain and self contained nose/pytest unit test case."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Synopsys Inc", "role" : "Senior R&D Engineer I","city":"sunnyvale",
-            "begin" : "2006", "end" : "2012",
-            "projects" : [
-                "Developed and maintain Memory Pool Manager.",
-                "Developed System Verilog Transformation using VCS Database",
-                "Maintained Verilog, System Verilog, Qt, spice, and system task/function.",
-                "Developed emacs/elisp regression and analysis major and minor mode suites.",
-                "Supported bug fixing of ESP and Formality-ESP tools."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "LSI Logic Corp", "role" : "Software Engineer I","city":"milpitas",
-            "begin" : "2004", "end" : "2006",
-            "projects" : [
-                "Developed a static timing analysis (STA) tool, in which I wrote function evaluation, logic propagation techniques using boost.",
-                "Developed a SDF parser in lex, yacc, and C++ STL.",
-                "Built the SDC tcl interface using SWIG (script wrapper interface generator).",
-                "Integrated the Verilog Cheetah reader in lsista.",
-                "Developed a Power modeling engine which made use of probability propagation of signals, accounting for the function information of cells.",
-                "Developed an electro-static discharge (ESD) Analysis Engine using asymptotic waveform evaluation (AWE).",
-                "Developed a function-covering program to determine arc completeness of cell libraries.",
-                "Developed fast reachability (dominating) and root-first-visit algorithm."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Transmeta", "role" : "Summer Coop","city":"santa clara",
-            "begin" : "2001", "end" : "2001",
-            "projects" : [
-                "Integrated new EDA tools into the design flow.",
-                "Supported CAD tools/scripts for Crusoe processor family, Automatic Chip Synthesis (ACS) scripts, and in-house power analysis tools/scripts.",
-                "Improved performance of Load Sharing Facilities (LSF) scripts."
-            ],
-            "userid" : "1"
-        },
-        {
-            "company" : "Cadence", "role" : "Summer Coop","city":"san jose",
-            "begin" : "2000", "end" : "2000",
-            "projects" : [
-                "Implemented a VCC/Lynx Codesign Bluetooth on an ARM7TDMI based platform design.",
-                "Codesigned a Bluetooth with VCC/Lynx HW/SW tool and verified with Cadence Affirma Hw/ Sw co-verification."
-            ],
-            "userid" : "1"
-        }
-    ]
+  "users" : [
+    { "firstname" : "Timothy", "lastname" : "Shiu",
+      "nickname" : "Tim", "email" : "timomakers@gmail.com",
+      "hashword" : "XYZ", "password": "123",
+      "userid" : "1" }
+  ],
+  "contacts" : [
+    { "method" : "href",
+      "detail" : "www.linkedin.com/in/tlinkedin", "userid" : "1"},
+    { "method" : "href",
+      "detail" : "www.github.com.com/timoweave", "userid" : "1"},
+    { "method" : "mailto",
+      "detail" : "timomakers@gmail.com", "userid" : "1"}, 
+    { "method" : "tel",
+      "detail" : "(202)630-2053", "userid" : "1"}
+  ],
+  "technicals" : [
+    { "category" : "Javascripts",
+      "areas" : [
+        "javascript (es6, es5)", "jquery", "underscore",
+        "angular", "react", "mongoose", "express", "node",
+        "bcrypt", "bootstrap", "react", "redux", "q", "morgan", "webpack"
+      ],
+      "userid" : "1"
+    },
+    { "category" : "Tools",
+      "areas": [
+        "github", "git", "gitlab", "travis-ci", "gitlab-ci",
+        "npm", "bower", "yeoman", "grunt", "glup", "webpack",
+        "sqlite3", "mysql", "progres SQL", "mongo"
+      ],
+      "userid" : "1"
+    },
+    { "category" : "Langs",
+      "areas" : [
+        "javascript", "python", "elisp", "perl", "C/C++", "verilog",
+        "ruby", "tcl", "spice", "nose", "scipy", "numpy", "lexparse"
+      ],
+      "userid" : "1"
+    }
+  ],
+  "educations" : [
+    { "degree" : "Master of Engineer", "begin" : "1998", "end" : "2004",
+      "school" : "Georgia Institute of Technology", "state" : "Georgia", "userid" : "1" },
+    { "degree" : "Master of Engineer", "begin" : "1997", "end" : "1998",
+      "school" : "University of Michigan", "state" : "Michigan", "userid" : "1" },
+    { "degree" : "Bachelor of Engineer", "begin" : "1992", "end" : "1997",
+      "school" : "McGill University", "state" : "Quebec", "userid" : "1" }
+  ],
+  "experiences" : [
+    {
+      "company" : "Hack Reactor", "role" : "Software Engineer", "city":"san francisco",
+      "begin" : "2016", "end" : "2016",
+      "projects" : [
+        "created tabs/lyrics for ukulele, MVP project(link)",
+        "create school tour for perspective student, GF project(link)",
+        "created restaruant app using mean full stack (link)",
+        "created ionic app using mean full stack (link)",
+        "created poker app using mean full stack (TBD)"
+
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Nebulian Technology", "role" : "Senior Software Engineer","city":"san jose",
+      "begin" : "2012", "end" : "2012",
+      "projects" : [
+        "Prototype and developed iOS mobile app and Django Web, meetloop.com & taotaomom.com.",
+        "Using various frameworks, Core Data (multi thread), MapKit, RestKit, ShareKit, Three20, XMPP (multi thread), WireShark.",
+        "Set up various servers such as OpenFire jabber, MySql, OAuth2, and Apache.",
+        "Developed Django web site using models, views, templates, with forms using Firebug, jQuery, and JavaScripts.",
+        "XCode building and testing."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Ausdia", "role" : "Senior R&D Engineer","city":"sunnyvale",
+      "begin" : "2014", "end" : "2015",
+      "projects" : [
+        "RD work, constraint coverage analysis of various inconsistent condition, absent associated constraint specification.",
+        "multi thread SDC constraint analysis, diagnostic, optimization of clock network and data",
+        "network and upgrade various important component to run faster and more maintainable.",
+        "multi thread min cut partition to balance random parallel functional simulation.",
+        "improve 10x run time performance for debug_rule facilities for over 100 constraint validations.",
+        "developed new feature, multimode check (multiple constraint scenarios, different set of clocks, constant, disable, false paths, clock sense, clock group, etc.,)",
+        "developed new feature sdc lint check, a super lint for SDC constraint lint checking with a lightweight and coherent semantic check against net-list and user constraints, and library constraints.",
+        "developed new feature scan chain check, load DFT scan chains from LEF/DEF file, and check for lockup latch issues.",
+        "developed new feature constraints merge, across multiple scenarios, transform, insert, or duplicated constraints among different constraints from different scenarios.",
+        "review and enhance run time performance, address customers issue such as diagnose performance, feature requests, and worked closely with product application engineers."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Lorentz Solution", "role" : "R&D Engineer","city":"santa clara",
+      "begin" : "2013", "end" : "2013",
+      "projects" : [
+        "supported AE customers, demo, software installation, and documentation",
+        "wrote spice parser in python and lex/yacc, ast, and perform syntax direct translation",
+        "Reduced lot of bugs of a product, high frequency design, by a net-centric mini layout-vs-schematic",
+        "improved infra-structure for calbire svdb cci interface (library components, netlist, and gdsii)",
+        "improved run time performance, 10x faster, compiler/compiler modular approach for easy maintain and self contained nose/pytest unit test case."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Synopsys Inc", "role" : "Senior R&D Engineer I","city":"sunnyvale",
+      "begin" : "2006", "end" : "2012",
+      "projects" : [
+        "Developed and maintain Memory Pool Manager.",
+        "Developed System Verilog Transformation using VCS Database",
+        "Maintained Verilog, System Verilog, Qt, spice, and system task/function.",
+        "Developed emacs/elisp regression and analysis major and minor mode suites.",
+        "Supported bug fixing of ESP and Formality-ESP tools."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "LSI Logic Corp", "role" : "Software Engineer I","city":"milpitas",
+      "begin" : "2004", "end" : "2006",
+      "projects" : [
+        "Developed a static timing analysis (STA) tool, in which I wrote function evaluation, logic propagation techniques using boost.",
+        "Developed a SDF parser in lex, yacc, and C++ STL.",
+        "Built the SDC tcl interface using SWIG (script wrapper interface generator).",
+        "Integrated the Verilog Cheetah reader in lsista.",
+        "Developed a Power modeling engine which made use of probability propagation of signals, accounting for the function information of cells.",
+        "Developed an electro-static discharge (ESD) Analysis Engine using asymptotic waveform evaluation (AWE).",
+        "Developed a function-covering program to determine arc completeness of cell libraries.",
+        "Developed fast reachability (dominating) and root-first-visit algorithm."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Transmeta", "role" : "Summer Coop","city":"santa clara",
+      "begin" : "2001", "end" : "2001",
+      "projects" : [
+        "Integrated new EDA tools into the design flow.",
+        "Supported CAD tools/scripts for Crusoe processor family, Automatic Chip Synthesis (ACS) scripts, and in-house power analysis tools/scripts.",
+        "Improved performance of Load Sharing Facilities (LSF) scripts."
+      ],
+      "userid" : "1"
+    },
+    {
+      "company" : "Cadence", "role" : "Summer Coop","city":"san jose",
+      "begin" : "2000", "end" : "2000",
+      "projects" : [
+        "Implemented a VCC/Lynx Codesign Bluetooth on an ARM7TDMI based platform design.",
+        "Codesigned a Bluetooth with VCC/Lynx HW/SW tool and verified with Cadence Affirma Hw/ Sw co-verification."
+      ],
+      "userid" : "1"
+    }
+  ]
 }

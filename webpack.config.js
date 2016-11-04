@@ -16,23 +16,38 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')
   })
+  // new webpack.DefinePlugin({ 'process.env' : { BROWSER: JSON.stringify(true) } })
 ];
 
 const modules = {
-  loaders: [{
-    test: /\.jsx?$/,
-    exclude: /node_modules/,
-    loader: 'babel',
-    query: {
-      "presets": ["react", "es2015", "stage-0", "react-hmre"]
+  loaders: [
+    {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      query: {
+        // plugins : [ "transform-es2015-modules-commonjs" ],
+        presets: ["es2015", "stage-0", "react", "react-hmre"]
+      }
+    },
+    {
+      test: /\.json?$/,
+      loader: 'json-loader'
+    },
+    {
+      test: /\.css$/,
+      // loader: 'style-loader!css-loader?modules&localIdentName=[name]---[local]---[hash:base64:5]'
+      loader: 'style-loader!css-loader'
+      // loaders: ['style-loader', 'css-loader']
+    },
+    {
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader',
+      query : {
+        name : '/fonts/[name].[ext]'
+      }
     }
-  }, {
-    test: /\.json?$/,
-    loader: 'json'
-  }, {
-    test: /\.css$/,
-    loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
-  }]
+  ]
 }
 
 const config = {
