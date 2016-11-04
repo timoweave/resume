@@ -1,0 +1,23 @@
+'use strict';
+
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import promise from 'redux-promise';
+import axios from 'axios';
+
+import { Technical, Technicals } from './plain_components.jsx';
+import { Education, Educations } from './plain_components.jsx';
+import { Contacts, Users, Resume } from './plain_components.jsx';
+import { Experience, Experiences } from './plain_components.jsx';
+
+export function Store() {
+    const nothing = (state, action) => { return {}; };
+    const reducers = combineReducers({ none: nothing });
+    const createStoreWithMiddleware = applyMiddleware(promise)(createStore)(reducers);
+    return createStoreWithMiddleware;
+}
+
