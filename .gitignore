@@ -4,6 +4,7 @@ mongo_data
 npm-debug.log
 fonts/*.woff
 fonts/*.css
+dist
 *~
 #*#
 .#*

@@ -1,5 +1,8 @@
 'use strict';
 
+
+// import globalStyles from '../fonts/fonts.css';
+
 // import { Experience, Experiences } from './plain_components.jsx';
 // import { Technical, Technicals } from './plain_components.jsx';
 // import { Education, Educations } from './plain_components.jsx';

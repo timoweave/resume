@@ -1,5 +1,6 @@
 const models = require('./models');
 const express = require('express');
+const chalk = require('chalk');
 const router = express.Router();
 
 const bodyParser = require('body-parser');
@@ -12,11 +13,11 @@ router.use(bodyParser.urlencoded({extended: true}));
 module.exports = router;
 
 router.route('/').get(get_index);
-router.route('/users').get(get_restful(models.User));
-router.route('/contacts').get(get_restful(models.Contact));
-router.route('/educations').get(get_restful(models.Education));
-router.route('/technicals').get(get_restful(models.Technical));
-router.route('/experiences').get(get_restful(models.Experience));
+router.route('/users').get(get_restful(models.User, '/users'));
+router.route('/contacts').get(get_restful(models.Contact, '/contacts'));
+router.route('/educations').get(get_restful(models.Education, '/educations'));
+router.route('/technicals').get(get_restful(models.Technical, '/technicals'));
+router.route('/experiences').get(get_restful(models.Experience, '/experiences'));
 
 // functions
 
@@ -29,12 +30,13 @@ function get_index(req, res) {
 function add_route(router, route_name, mongoose_model) {
   router
   .route(route_name)
-  .get(get_restful(mongoose_model));
+  .get(get_restful(mongoose_model, route_name));
 }
 
-function get_restful(model) {
+function get_restful(model, route_name) {
   return (req, res) => {
     model.find({}).then((data) => {
+      console.log(chalk.green('OK'), 'mongoose', route_name, 'restful api');
       res.status(200).json(data);
     }).catch((error) => {
       res.status(400).json({error});

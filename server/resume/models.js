@@ -1,5 +1,6 @@
 const config = require('../../config');
 const mongoose = require('mongoose');
+const chalk = require('chalk');
 mongoose.Promise = require('q').Promise; // NOTE: original mongoose.mpromise is deprecated
 var Schema = mongoose.Schema;
 
@@ -88,25 +89,26 @@ function crudify_models(url) {
   // functions
 
   function ready() {
-    console.log("OK", "ready", "mongoose", url);
+    console.log(chalk.green("OK"), "ready", "mongoose", url);
   }
 
   function connected() {
-    console.log('OK', 'connected', 'mongoose', url);
+    console.log(chalk.green('OK'), 'connected', 'mongoose', url);
   }
 
   function disconnected() {
-    console.log('OK', 'disconnected', 'mongoose', url);
+    console.log(chalk.green('OK'), 'disconnected', 'mongoose', url);
   }
 
   function error() {
-    console.log('NO', 'error', 'mongoose', url);
+    console.log(chalk.red('NO'), 'error', 'mongoose', url);
   }
 }
 
 var crudified = false;
 if (!crudified) {
-  const url = config.isDeveloping ? config.mlocal : config.mlab;
+  // const url = config.isDeveloping ? config.mlocal : config.mlab;
+  const url = config.mlab;
   crudify_models(url);
   crudified = true;
 }

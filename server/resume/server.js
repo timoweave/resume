@@ -1,5 +1,6 @@
 var express = require('express');
 var morgan = require('morgan');
+var chalk = require('chalk');
 var resume = require('./routes');
 
 class ResumeServer {
@@ -22,7 +23,7 @@ class ResumeServer {
   }
 
   defaultStartCallback() {
-    console.log('OK', 'connected', 'express', this.port);
+    console.log(chalk.green('OK'), 'connected', 'express', this.port);
   }
 }
 

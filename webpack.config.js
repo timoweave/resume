@@ -42,22 +42,21 @@ const modules = {
     },
     {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-      query : {
-        name : '/fonts/[name].[ext]'
-      }
+      loader: 'file-loader?name=fonts/[name].[ext]'
     }
   ]
 }
 
 const config = {
   devtool: 'eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'client/app.jsx')
-  ],
+  entry: {
+    main : [
+      'webpack-hot-middleware/client?reload=true',
+      path.join(__dirname, 'client/app.jsx')
+    ]
+  },
   output: {
-    publicPath: '/',
+    publicPath: '/bundle',
     path: path.join(__dirname, '/dist/'),
     filename: '[name].js',
     chunkFilename: "[name]-[chunkhash].js"

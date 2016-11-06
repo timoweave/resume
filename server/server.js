@@ -1,5 +1,6 @@
 const config = require('../config');
 const express = require('express');
+const chalk = require('chalk');
 
 class Server {
 
@@ -88,9 +89,9 @@ class Server {
   
   defaultStartCallback(err) {
     if (err) {
-      console.log(err);
+      console.log(chalk.red('NO'), err);
     }
-    console.log('Ok', 'express', this.host + ':' + this.port);
+    console.log(chalk.green('Ok'), 'express', this.host + ':' + this.port);
   }
 
 }

@@ -7,9 +7,9 @@
   ],
   "contacts" : [
     { "method" : "href",
-      "detail" : "www.linkedin.com/in/tlinkedin", "userid" : "1"},
+      "detail" : "linkedin.com/in/tlinkedin", "userid" : "1"},
     { "method" : "href",
-      "detail" : "www.github.com.com/timoweave", "userid" : "1"},
+      "detail" : "github.com/timoweave", "userid" : "1"},
     { "method" : "mailto",
       "detail" : "timomakers@gmail.com", "userid" : "1"}, 
     { "method" : "tel",
@@ -32,7 +32,7 @@
       ],
       "userid" : "1"
     },
-    { "category" : "Langs",
+    { "category" : "Languages",
       "areas" : [
         "javascript", "python", "elisp", "perl", "C/C++", "verilog",
         "ruby", "tcl", "spice", "nose", "scipy", "numpy", "lexparse"
