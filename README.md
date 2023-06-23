@@ -2,7 +2,8 @@
 
 Make an resume editor, so that user can create/retreive/update/delete user profile, work experience, school education, etc.,
 1. run `npm run dev` to start the server and point your broswer to `http://localhost:5173/resume`
-1. see demo at `doc/resume-demo.mov`
+1. see demo 
+   [![Watch the video](doc/resume-route.png)](https://youtu.be/BWqaPQk-u0A)
 
 # Stack
 
