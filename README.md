@@ -1,7 +1,9 @@
 # Introduction
 
 Make an resume editor, so that user can create/retreive/update/delete user profile, work experience, school education, etc.,
-1. run `npm run dev` to start the server and point your broswer to `http://localhost:5173/resume`
+1. localhost demo. run `npm run dev` and then vist `http://localhost:5173/resume`
+1. docker demo.
+   run `docker run -it -p 5173:80 --rm timoweave/resume_nginx:latest`, and then visit `http://localhost:5173/resume`
 1. see demo 
    [![Watch the video](doc/resume-route.png)](https://youtu.be/BWqaPQk-u0A)
 
