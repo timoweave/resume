@@ -293,7 +293,7 @@ export type ExperienceModalProps = {
 
 export const ExperienceModal = (props: ExperienceModalProps): JSX.Element => {
   const { editor } = props;
-  const { row, isOpenModal, onCloseModal } = editor;
+  const { row, isOpenModal, onCloseModal, onSubmit } = editor;
 
   return (
     <Modal isCentered size="3xl" isOpen={isOpenModal} onClose={onCloseModal}>
@@ -312,7 +312,7 @@ export const ExperienceModal = (props: ExperienceModalProps): JSX.Element => {
           <Button
             colorScheme={editor.editModeColor}
             mr={3}
-            onClick={onCloseModal}
+            onClick={onSubmit}
           >
             {editor.editModeName}
           </Button>

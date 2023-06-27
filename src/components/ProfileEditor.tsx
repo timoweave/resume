@@ -58,7 +58,7 @@ export const ProfileBody = (props: ProfileBodyProps): JSX.Element => {
         <Grid templateColumns="1fr">
           <Flex>
             <Heading size="sm">
-              {row.last_name} {row.first_name}
+              {row.first_name} {row.last_name}
             </Heading>
             <Spacer />
             {profileEditor != null && (

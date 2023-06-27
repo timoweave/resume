@@ -28,7 +28,7 @@ import React from 'react';
 export type ResumeSectionProps<TRow extends FieldValues> = {
   title: string;
   editor?: UseEditor<TRow>;
-  children: JSX.Element[];
+  children: React.ReactNode;
 };
 
 export const ResumeSection = <TRow extends FieldValues>(
@@ -82,23 +82,25 @@ export const Resume = (): JSX.Element => {
             session={session}
           />
         ))}
+        <ProfileDrawer resume={resume} />
+        <ProfileModal resume={resume} session={session} />
       </ResumeSection>
-      <ProfileDrawer resume={resume} />
-      <ProfileModal resume={resume} session={session} />
+
       <ResumeSection title="Experience" editor={experienceEditor}>
         {experienceList.map((exp) => (
           <ExperienceCard key={exp.id} row={exp} editor={experienceEditor} />
         ))}
+        <ExperienceDrawer editor={experienceEditor} />
+        <ExperienceModal editor={experienceEditor} />
       </ResumeSection>
-      <ExperienceDrawer editor={experienceEditor} />
-      <ExperienceModal editor={experienceEditor} />
+
       <ResumeSection title="Education" editor={educationEditor}>
         {educationList.map((edu) => (
           <EducationCard key={edu.id} row={edu} editor={educationEditor} />
         ))}
+        <EducationDrawer editor={educationEditor} />
+        <EducationModal editor={educationEditor} />
       </ResumeSection>
-      <EducationDrawer editor={educationEditor} />
-      <EducationModal editor={educationEditor} />
     </Box>
   );
 };

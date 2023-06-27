@@ -149,38 +149,65 @@ export const useEditor = <TRow extends FieldValues>(
     toast(toastOptions);
     switch (editMode) {
       case 'UPDATE':
-        updateRow({ table, row, setRowList }).then(() => {
-          toast.update(toastID, {
-            ...toastOptions,
-            status: 'success',
-            description: `Updated ${bodyPhrase(row)}!`,
+        updateRow({ table, row, setRowList })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Updated ${bodyPhrase(row)}!`,
+            });
+            setIsLoading.off();
+          })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Inserted ${bodyPhrase(rowWithProfileID)}!`,
+            });
+            setIsLoading.off();
           });
-          setIsLoading.off();
-        });
         break;
       case 'DELETE':
-        deleteRow({ table, row, setRowList }).then(() => {
-          toast.update(toastID, {
-            ...toastOptions,
-            status: 'success',
-            description: `Deleted ${bodyPhrase(row)}!`,
+        deleteRow({ table, row, setRowList })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Deleted ${bodyPhrase(row)}!`,
+            });
+            setIsLoading.off();
+          })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Inserted ${bodyPhrase(rowWithProfileID)}!`,
+            });
+            setIsLoading.off();
           });
-          setIsLoading.off();
-        });
         break;
       case 'CREATE':
         insertRow({
           table,
           row: rowWithProfileID,
           setRowList,
-        }).then(() => {
-          toast.update(toastID, {
-            ...toastOptions,
-            status: 'success',
-            description: `Inserted ${bodyPhrase(rowWithProfileID)}!`,
+        })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Inserted ${bodyPhrase(rowWithProfileID)}!`,
+            });
+            setIsLoading.off();
+          })
+          .then(() => {
+            toast.update(toastID, {
+              ...toastOptions,
+              status: 'success',
+              description: `Inserted ${bodyPhrase(rowWithProfileID)}!`,
+            });
+            setIsLoading.off();
           });
-          setIsLoading.off();
-        });
         break;
       default:
     }
